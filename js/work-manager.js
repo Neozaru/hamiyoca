@@ -57,7 +57,7 @@ function onSuccess(jsonresp) {
         }
         worker = { postMessage : function(m) { worker.intMessage( { data: m} ); },
                    intMessage: function() {} };
-        var m = readScript('miner.js');
+        var m = readScript('js/miner.js');
         var s = '(function() {' + m + ';\n' + 'onmessage({ data: job });' + ' worker.intMessage = onmessage; })';
         var run = eval(s);
         run();
@@ -93,7 +93,7 @@ function get_work() {
         } catch (e) {}
     }
 
-    $.post("index.php?cache=1&ts=" + (new Date().getTime()),
+    $.post("/server/?cache=1&ts=" + (new Date().getTime()),
            '{ "method": "getwork", "id": "json", "params": [] }',
            onSuccess,
            "text json");
